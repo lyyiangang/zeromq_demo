@@ -19,16 +19,11 @@ message("CMAKE_RUNTIME_OUTPUT_DIRECTORY:${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 include_directories(${ZMQ_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS}  ${Protobuf_INCLUDE_DIR})
 include_directories("${PROJECT_SOURCE_DIR}/../cppzmq")
 include_directories("${PROJECT_SOURCE_DIR}/")
-message("PROJECT_SOURCE_DIR:${PROJECT_SOURCE_DIR}")
+
 # build cpp from proto
 PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER msg.proto)
-ADD_LIBRARY(proto ${PROTO_HEADER} ${PROTO_SRC})
-add_executable(pub "pub.cpp")
-target_link_libraries(pub proto
-                          ${Protobuf_LIBRARIES}
-                          ${ZMQ_LIBRARIES}
-                          ${OpenCV_LIBS}
-                          )
+add_executable(pub "pub.cpp" ${PROTO_HEADER} ${PROTO_SRC})
+target_link_libraries(pub  ${Protobuf_LIBRARIES} ${ZMQ_LIBRARIES} ${OpenCV_LIBS})
 
 # build python script from proto
 PROTOBUF_GENERATE_PYTHON(PROTO_PY msg.proto)

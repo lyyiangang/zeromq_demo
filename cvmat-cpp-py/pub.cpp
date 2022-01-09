@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     zmq::context_t context (1);
     zmq::socket_t publisher (context, ZMQ_PUB);
     publisher.set(zmq::sockopt::sndhwm, 2); // in case use too much memory, only cache 2 frame
+
     publisher.bind("tcp://127.0.0.1:5557");
     int i_frame (0);
     cv::Mat img_original = cv::imread("../cat.jpg");
