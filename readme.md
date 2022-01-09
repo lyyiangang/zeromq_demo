@@ -1,5 +1,5 @@
 # zeromq的示例代码
-本项目主要展示了3中不同zeromq的示例代码。
+本项目主要展示了3中不同zeromq的示例代码以及一个简单的python socket使用例子。
 - py-py
     这个项目展示了python版本的pub和sub例子
 
@@ -8,6 +8,8 @@
 
 - cvmat-cpp-py
     这个例子是将一个OpenCV的cv::Mat数据结构通过protobuf序列化，发送给一个python的subscriber.
+- naive_socket_example
+    一个简单的server&client例子
 - cppzmq
 该文件夹是libzmq的cpp包装，方便cpp调用， 只包含头文件。具体api使用可以参考[cppzmq](https://github.com/zeromq/cppzmq)
 - cmake
@@ -22,6 +24,12 @@ apt-get install libzmq3-dev protobuf-compiler -y
 pip3 install pyzmq  protobuf opencv-python numpy
 ```
 ## 运行
+- naive_socket_example
+    ```python
+    python socket_server.py
+    python socket_client.py
+    ```
+    参考链接:https://realpython.com/python-sockets/
 - py-py(rep/req)
     ```python
     # 启动客户端
