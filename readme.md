@@ -1,20 +1,27 @@
 # zeromq的示例代码
 本项目主要展示了3中不同zeromq的示例代码以及一个简单的python socket使用例子。
 - py-py
+
     这个项目展示了python版本的pub和sub例子
 
 - cpp-proto-py
+
     这个例子中， cpp代码会作为一个publisher, python代码会作为一个subscriber, cpp将一个结构体通过protoc序列化，发送给subscriber。
 
 - cvmat-cpp-py
+    
     这个例子是将一个OpenCV的cv::Mat数据结构通过protobuf序列化，发送给一个python的subscriber.
 - naive_socket_example
+    
     一个简单的server&client例子
 - cppzmq
+
 该文件夹是libzmq的cpp包装，方便cpp调用， 只包含头文件。具体api使用可以参考[cppzmq](https://github.com/zeromq/cppzmq)
 - cmake
+
     该目录包含了两个cmake文件，方便调用protobuf和zmq
 ## 依赖安装
+
 首先安装OpenCV， 这个可以参考OpenCV官方网站。
 然后安装其他依赖：
 ```bash
@@ -25,12 +32,14 @@ pip3 install pyzmq  protobuf opencv-python numpy
 ```
 ## 运行
 - naive_socket_example
+
     ```python
     python socket_server.py
     python socket_client.py
     ```
     参考链接:https://realpython.com/python-sockets/
 - py-py(rep/req)
+
     ```python
     # 启动客户端
     python rep_req.py 1
@@ -40,6 +49,7 @@ pip3 install pyzmq  protobuf opencv-python numpy
     ```
 
 - py-py(pub/sub)
+    
     ```python
     # 启动sub端
     python pub_sub.py 1
@@ -47,6 +57,7 @@ pip3 install pyzmq  protobuf opencv-python numpy
     python pub_sub.py 
     ```
 - cpp-proto-py
+   
     ```bash
     cd cpp-proto-py
     mkdir build && cd build
@@ -69,6 +80,7 @@ pip3 install pyzmq  protobuf opencv-python numpy
     joint_velocity: -2.0999999046325684
     ```
 - cvmat-cpp-py
+  
     这个例子演示了使用OpenCV读取一张图片存储为cvmat格式， 并将mat转换为protobuf格式后通过zmq发送出去， python端会获取该图片并显示出来。
     编译：
     ```bash
