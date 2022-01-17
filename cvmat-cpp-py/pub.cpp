@@ -3,8 +3,11 @@
 #include <thread>
 #include <opencv2/opencv.hpp>
 #include <build/msg.pb.h>
+#include <vector>
 
 #include <zmq.hpp>
+
+bool encode_buf = false;
 
 int main(int argc, char *argv[])
 {
@@ -22,13 +25,22 @@ int main(int argc, char *argv[])
         cv::putText(img, buff, cv::Point(0, 50), cv::FONT_HERSHEY_SCRIPT_COMPLEX, 1.0, cv::Scalar(255, 0, 0));
 
         RL::OcvMat serializableMat;
-        serializableMat.set_rows(img.rows);
-        serializableMat.set_cols(img.cols);
-        serializableMat.set_channels(img.channels());
-        serializableMat.set_elt_type(img.type());
-        serializableMat.set_elt_size((int)img.elemSize()); //3
-        size_t dataSize = img.rows * img.cols * img.elemSize();
-        serializableMat.set_mat_data(img.data, dataSize);
+        if(encode_buf){
+            // boost transpose
+            std::vector<uchar> encoded_data;
+            cv::imencode(".jpg", img, encoded_data);
+            size_t dataSize = encoded_data.size();
+            serializableMat.set_mat_data(encoded_data.data(), dataSize);
+        }
+        else{
+            serializableMat.set_rows(img.rows);
+            serializableMat.set_cols(img.cols);
+            serializableMat.set_channels(img.channels());
+            serializableMat.set_elt_type(img.type());
+            serializableMat.set_elt_size((int)img.elemSize()); //channel = 3
+            size_t dataSize = img.rows * img.cols * img.elemSize();
+            serializableMat.set_mat_data(img.data, dataSize);
+        }
 
         std::string encoded_msg;
         serializableMat.SerializeToString(&encoded_msg);
