@@ -1,8 +1,8 @@
 # zeromq的示例代码
 本项目主要展示了3中不同zeromq的示例代码以及一个简单的python socket使用例子。
 - py-py
-
-    这个项目展示了python版本的pub和sub例子
+    这个项目有两个py文件，分别展示了request&reply模式 以及pub&sub模式.
+    request&reply模式模拟了客户端向服务器端发送函数计算的功能，服务器端收到计算请求后开始计算， 然后将计算结果返回给client端。
 
 - cpp-proto-py
 
